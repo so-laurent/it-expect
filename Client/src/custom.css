@@ -1,0 +1,39 @@
+.bg-theme1 {
+  background-color: #B8C4BB;
+}
+
+.bg-theme2 {
+  background-color: #382327;
+}
+
+.bg-theme3 {
+  background-color: #C9D6EA;
+}
+
+.bg-theme4 {
+  background-color: #3C362A;
+}
+
+.bg-theme5 {
+  background-color: #D3D3D3;
+}
+
+.hover\:bg-theme1:hover {
+  background-color: #B8C4BB;
+}
+
+.hover\:bg-theme2:hover {
+  background-color: #382327;
+}
+
+.hover\:bg-theme3:hover {
+  background-color: #C9D6EA;
+}
+
+.hover\:bg-theme4:hover {
+  background-color: #3C362A;
+}
+
+.hover\:bg-theme5:hover {
+  background-color: #D3D3D3;
+}
