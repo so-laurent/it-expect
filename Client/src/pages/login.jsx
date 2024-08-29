@@ -14,7 +14,7 @@ const formSchema = z.object({
     email: z.string().email(
         'Please enter a valid email address'
     ),
-    password: z.string().min(8, 'Password must be at least 8 characters long')
+    password: z.string()
 })
 
 const Login = () => {
@@ -89,7 +89,7 @@ const Login = () => {
                         type="submit"
                         {...loginForm.formState.isSubmitting && { disabled: true }}
                     >Connexion</Button>
-                    {responseMessage && <p>{responseMessage}</p>}
+                    {responseMessage && <p className='text-red-500'>{responseMessage}</p>}
                 </form>
             </Form>
         </div>

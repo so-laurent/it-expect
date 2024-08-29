@@ -14,7 +14,13 @@ User.init({
     },
     username: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            len: {
+                min: 3,
+                msg: "Username must be at least 3 characters long"
+            }
+        }
     },
     email: {
         type: DataTypes.STRING,

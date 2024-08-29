@@ -33,7 +33,7 @@ const Register = () => {
         Auth.register(data)
         .then(response => {
             if (!response.success) {
-                setErrorMessage(response.error)
+                setErrorMessage(response.message)
             } else {
                 window.location.href = '/login'
             }

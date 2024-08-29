@@ -11,7 +11,7 @@ import z from 'zod'
 
 import Users from '@/services/api/users'
 import AuthContext from '@/contexts/authContext'
-import { Pencil } from 'lucide-react'
+import { Pencil, Trash } from 'lucide-react'
 
 const formSchema = z.object({
     username: z.string().min(1, 'Please enter a username').optional(),
@@ -31,10 +31,19 @@ const Profile = () => {
         }
     })
 
+    const handleDelete = () => {
+        alert('Are you sure you want to delete your account?')
+        Users.delete(profile.currentUser.id).then(() => {
+            profile.logout()
+            window.location.href = '/'
+        })
+    }
+
     const onSubmit = (data) => {
         data.id = profile.currentUser.id
         Users.update(data).then((response) => {
             profile.login(response.user)
+            controls.close()
         })
     }
 
@@ -55,7 +64,14 @@ const Profile = () => {
                     className='absolute top-0 right-0 w-0 h-0 border-t-8 border-r-8 border-theme3 bg-theme3
                     '
                 ></div>
+                <Button variant='destructive'
+                    name='delete'
+                    className='absolute bottom-0 left-0'   
+                    onClick={handleDelete}>
+                        <Trash size={24} strokeWidth={1} />
+                </Button>
                 <Button variant='ghost'
+                    name='edit'
                     className='absolute bottom-0 right-0'
                     onClick={controls.open}>
                         <Pencil size={24} strokeWidth={1} />
