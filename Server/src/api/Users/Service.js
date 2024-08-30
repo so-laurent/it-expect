@@ -41,6 +41,8 @@ const register = (req, res) => {
                 });
             }).catch(error => {
                 res.status(400).json({ error: error.errors[0].message });
+                console.log('error', error);
+                throw error;
             });
         }
     });

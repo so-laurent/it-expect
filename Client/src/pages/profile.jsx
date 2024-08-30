@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form.jsx'
 import { Button } from '@/components/ui/button.jsx'
@@ -30,6 +30,7 @@ const Profile = () => {
             email: profile.currentUser?.email,
         }
     })
+    const [errorMessage, setErrorMessage] = useState('')
 
     const handleDelete = () => {
         alert('Are you sure you want to delete your account?')
@@ -42,8 +43,15 @@ const Profile = () => {
     const onSubmit = (data) => {
         data.id = profile.currentUser.id
         Users.update(data).then((response) => {
-            profile.login(response.user)
-            controls.close()
+            console.log(response)
+            if(!response.user) {
+                console.log(response)
+                response.error && setErrorMessage(response.error)
+                
+            } else {
+                profile.login(response.user)
+                controls.close()
+            }
         })
     }
 
@@ -130,9 +138,12 @@ const Profile = () => {
                                 </FormItem>
                             )}
                         />
-                        <Button type='submit'>
+                        <Button type='submit'
+                            {...profileForm.formState.isSubmitting && { disabled: true }}
+                        >
                             Mettre à jour
                         </Button>
+                        {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
                     </form>
                 </Form>
             </Modal>

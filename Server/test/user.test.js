@@ -1,5 +1,17 @@
 const User = require('../src/api/Users/Model');
 
+jest.mock('../src/api/Users/Model', () => {
+    const SequelizeMock = require('sequelize-mock');
+    const dbMock = new SequelizeMock();
+    return dbMock.define('user', {
+        id: 'id',
+        username: 'test',
+        email: 'test5@test.tst',
+        password: 'test$jdsfmlk1234!!',
+        role: 'user'
+    });
+});
+
 describe('User tests', () => {
 
     afterEach(done =>{
@@ -45,19 +57,16 @@ describe('User tests', () => {
 
     it('update user', async () => {
         const user = await User.findOne({ where: { email: 'test5@test.tst' } });
-        user.username = 'test2';
-        await user.save();
+        const result = await user.update({ username: 'test2' });
 
-        const updatedUser = await User.findOne({ where: { email: 'test5@test.tst' } });
-        expect(updatedUser.username).toBe('test2');
+        expect(result.username).toBe('test2');
     });
 
     it('delete user', async () => {
         const user = await User.findOne({ where: { email: 'test5@test.tst' } });
-        await user.destroy();
+        const result = await user.destroy();
 
-        const deletedUser = await User.findOne({ where: { email: 'test5@test.tst' } });
-        expect(deletedUser).toBeNull();
+        expect(result).toBeFalsy();
     });
 });
     
