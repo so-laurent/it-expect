@@ -43,11 +43,8 @@ const Profile = () => {
     const onSubmit = (data) => {
         data.id = profile.currentUser.id
         Users.update(data).then((response) => {
-            console.log(response)
             if(!response.user) {
-                console.log(response)
-                response.error && setErrorMessage(response.error)
-                
+                response.error && setErrorMessage(response.error)                
             } else {
                 profile.login(response.user)
                 controls.close()
